@@ -149,7 +149,6 @@ def eval(pred_depths):
     num_samples = len(pred_depths)
     pred_depths_valid = []
 
-    i = 0
     for t_id in range(num_samples):
         if t_id in missing_ids:
             continue
@@ -212,7 +211,7 @@ def eval(pred_depths):
 
     print("{:>7}, {:>7}, {:>7}, {:>7}, {:>7}, {:>7}, {:>7}, {:>7}, {:>7}".format(
         'd1', 'd2', 'd3', 'AbsRel', 'SqRel', 'RMSE', 'RMSElog', 'SILog', 'log10'))
-    print("{:7.3f}, {:7.3f}, {:7.3f}, {:7.3f}, {:7.3f}, {:7.3f}, {:7.3f}, {:7.3f}, {:7.3f}".format(
+    print("{:7.5f}, {:7.5f}, {:7.5f}, {:7.3f}, {:7.3f}, {:7.3f}, {:7.3f}, {:7.3f}, {:7.3f}".format(
         d1.mean(), d2.mean(), d3.mean(),
         abs_rel.mean(), sq_rel.mean(), rms.mean(), log_rms.mean(), silog.mean(), log10.mean()))
 

@@ -33,9 +33,21 @@ def run(input_path, output_path, model_path, model_type="dpt_hybrid", optimize=T
 
     # load network
     if model_type == "dpt_large":  # DPT-Large
-        net_w = net_h = 384
+        # net_w = net_h = 384
+        # model = DPTDepthModel(
+        #     path=model_path,
+        #     backbone="vitl16_384",
+        #     non_negative=True,
+        #     enable_attention_hooks=False,
+        # )
+        net_w = 1216
+        net_h = 352
+
         model = DPTDepthModel(
             path=model_path,
+            scale=0.00006016,
+            shift=0.00579,
+            invert=True,
             backbone="vitl16_384",
             non_negative=True,
             enable_attention_hooks=False,
