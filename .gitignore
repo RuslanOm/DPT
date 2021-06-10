@@ -8,6 +8,10 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+diode_eval/
+diode.txt
+diode_preproc.py
+diode_eval.zip
 build/
 develop-eggs/
 dist/

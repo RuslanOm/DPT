@@ -93,7 +93,30 @@ parser.add_argument('--do_kb_crop', help='if set, crop input images as kitti ben
 args = parser.parse_args()
 
 
-def read_data():
+def read_data_diode():
+    names_ls = [item.split('.')[0] for item in os.listdir(args.pred_path) if item.endswith('.pfm')]
+    preds_ls = [f'{args.pred_path}/{name}.pfm' for name in names_ls]
+    ls_a, ls_b, ls_c = [], [], []
+
+    def fn(st):
+        return f'{args.gt_path}/{st}.npy'
+
+    gt_ls = [fn(name) for name in names_ls]
+    for p_gt, p_p in zip(gt_ls, preds_ls):
+        pred, _ = read_pfm(p_p)
+        depth = np.load(p_gt)
+        if depth is None:
+            print('Missing: %s ' % p_gt)
+            continue
+        mask = depth > 0
+        a, b, c = _main(depth, pred, mask)
+        ls_a.append(a)
+        ls_b.append(b)
+        ls_c.append(c)
+    print(np.mean(ls_a), np.mean(ls_b), np.mean(ls_c))
+
+
+def read_data_kitti():
     names_ls = [item.split('.')[0] for item in os.listdir(args.pred_path) if item.endswith('.pfm')]
     preds_ls = [f'{args.pred_path}/{name}.pfm' for name in names_ls]
     ls_a, ls_b, ls_c = [], [], []
@@ -119,5 +142,7 @@ def read_data():
 
 
 if __name__ == "__main__":
-    read_data()
-
+    if args.dataset == 'kitti':
+        read_data_kitti()
+    elif args.dataset == 'diode':
+        read_data_diode()
