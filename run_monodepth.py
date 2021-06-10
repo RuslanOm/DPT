@@ -201,6 +201,7 @@ if __name__ == "__main__":
         help="model type [dpt_large|dpt_hybrid|midas_v21]",
     )
 
+    parser.add_argument("--base_model_path", dest='base_model_path', default='weights/')
     parser.add_argument("--kitti_crop", dest="kitti_crop", action="store_true")
     parser.add_argument("--absolute_depth", dest="absolute_depth", action="store_true")
 
@@ -214,11 +215,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     default_models = {
-        "midas_v21": "weights/midas_v21-f6b98070.pt",
-        "dpt_large": "weights/dpt_large-midas-2f21e586.pt",
-        "dpt_hybrid": "weights/dpt_hybrid-midas-501f0c75.pt",
-        "dpt_hybrid_kitti": "weights/dpt_hybrid_kitti-cb926ef4.pt",
-        "dpt_hybrid_nyu": "weights/dpt_hybrid_nyu-2ce69ec7.pt",
+        "midas_v21": f"{args.base_model_path}/midas_v21-f6b98070.pt",
+        "dpt_large": f"{args.base_model_path}/dpt_large-midas-2f21e586.pt",
+        "dpt_hybrid": f"{args.base_model_path}/dpt_hybrid-midas-501f0c75.pt",
+        "dpt_hybrid_kitti": f"{args.base_model_path}/dpt_hybrid_kitti-cb926ef4.pt",
+        "dpt_hybrid_nyu": f"{args.base_model_path}/dpt_hybrid_nyu-2ce69ec7.pt",
     }
 
     if args.model_weights is None:
