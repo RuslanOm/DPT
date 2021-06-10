@@ -97,7 +97,12 @@ def read_data():
     names_ls = [item.split('.')[0] for item in os.listdir(args.pred_path) if item.endswith('.pfm')]
     preds_ls = [f'{args.pred_path}/{name}.pfm' for name in names_ls]
     ls_a, ls_b, ls_c = [], [], []
-    gt_ls = [f'/Users/ruslanomarov/work/dubble/my_forks/DPT/input/gt/2011_10_03_drive_0047_sync/proj_depth/groundtruth/image_02/{name.split("_")[-1]}.png' for name in names_ls]
+
+    def fn(st):
+        dirc, name = st.rstrip('_', 1)
+        return f'{args.gt_path}/{dirc}/proj_depth/groundtruth/image_02/{name}.png'
+
+    gt_ls = [fn(name) for name in names_ls]
     for p_gt, p_p in zip(gt_ls, preds_ls):
         pred, _ = read_pfm(p_p)
         depth = cv2.imread(p_gt, -1)
