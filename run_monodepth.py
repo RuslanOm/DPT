@@ -201,7 +201,7 @@ if __name__ == "__main__":
         help="model type [dpt_large|dpt_hybrid|midas_v21]",
     )
 
-    parser.add_argument("--base_model_path", dest='base_model_path', default='weights/')
+    parser.add_argument("--base_model_path", dest='base_model_path', default='weights')
     parser.add_argument("--kitti_crop", dest="kitti_crop", action="store_true")
     parser.add_argument("--absolute_depth", dest="absolute_depth", action="store_true")
 

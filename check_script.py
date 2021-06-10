@@ -99,7 +99,7 @@ def read_data():
     ls_a, ls_b, ls_c = [], [], []
 
     def fn(st):
-        dirc, name = st.rstrip('_', 1)
+        dirc, name = st.rsplit('_', 1)
         return f'{args.gt_path}/{dirc}/proj_depth/groundtruth/image_02/{name}.png'
 
     gt_ls = [fn(name) for name in names_ls]
